@@ -105,11 +105,16 @@ function renderLongFormVideos() {
   longFormGrid.querySelectorAll("[data-youtube-id]").forEach(button => button.addEventListener("click", () => openVideo(button.dataset.youtubeId, button.dataset.title, "youtube")));
 }
 
-function openVideo(id, title, provider = "drive") {
+function openVideo(id, title, provider = "drive", orientation = "landscape") {
   document.getElementById("modalTitle").textContent = title;
+
+  const modalInner = document.querySelector(".modal-inner");
+  modalInner.classList.toggle("portrait", orientation === "portrait");
+
   player.src = provider === "youtube"
     ? `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0`
     : `https://drive.google.com/file/d/${encodeURIComponent(id)}/preview`;
+
   modal.classList.add("open");
   document.body.style.overflow = "hidden";
 }
