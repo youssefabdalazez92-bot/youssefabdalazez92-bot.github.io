@@ -50,17 +50,26 @@ function projectCard(project, index, featured = false) {
   const safeTitle = escapeHTML(project.title);
   const isFeatured = featured || featuredIds.includes(project.id);
   const thumbnail = `https://drive.google.com/thumbnail?id=${encodeURIComponent(project.id)}&sz=w1200`;
+  const orientation = "portrait";
   return `<article class="project">
-    <button class="thumb" data-id="${project.id}" data-title="${safeTitle}" aria-label="Play ${safeTitle}" type="button">
+    <button class="thumb" data-id="${project.id}" data-title="${safeTitle}" data-orientation="${orientation}" aria-label="Play ${safeTitle}" type="button">
       <img src="${thumbnail}" alt="${safeTitle} preview" loading="lazy" onerror="this.style.opacity='.15'">
       <span class="play" aria-hidden="true">▶</span>
     </button>
     <div class="project-meta"><div>${isFeatured ? '<span class="featured-tag">✳ Featured project</span>' : ''}<h3>${safeTitle}</h3><small>${escapeHTML(project.type)}</small></div><span class="project-num">${String(index + 1).padStart(2,"0")}</span></div>
   </article>`;
 }
-
 function attachDriveVideoHandlers(container) {
-  container.querySelectorAll(".thumb[data-id]").forEach(button => button.addEventListener("click", () => openVideo(button.dataset.id, button.dataset.title, "drive")));
+  container.querySelectorAll(".thumb[data-id]").forEach(button =>
+    button.addEventListener("click", () =>
+      openVideo(
+        button.dataset.id,
+        button.dataset.title,
+        "drive",
+        button.dataset.orientation || "landscape"
+      )
+    )
+  );
 }
 
 function renderFeatured() {
