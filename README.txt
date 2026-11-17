@@ -29,3 +29,5 @@ Build 03 update
 - Added an accessible Apple-style mobile navigation menu for small screens.
 - Updated contact status copy to avoid claiming confirmed delivery when the Apps Script response is opaque in no-cors mode.
 - A live form receipt test is still required after deployment preview; the current environment cannot verify the Apps Script backend response.
+
+Portfolio deployment refresh
